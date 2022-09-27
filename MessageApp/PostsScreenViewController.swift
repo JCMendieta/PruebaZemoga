@@ -7,13 +7,14 @@
 
 import UIKit
 
-class PostScreenViewController: UIViewController {
+class PostsScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Posts"
         //navigationController?.navigationBar.backgroundColor = .
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(mostrarvc))
+        view.backgroundColor = .white
         // Do any additional setup after loading the view.
     }
     @objc func mostrarvc(){
