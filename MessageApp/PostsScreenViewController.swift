@@ -9,6 +9,8 @@ import UIKit
 
 class PostsScreenViewController: UIViewController {
 
+    weak var coordinator: MainCoordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Posts"
@@ -18,8 +20,7 @@ class PostsScreenViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @objc func mostrarvc(){
-        let vc = PostDetailViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        coordinator?.showPostDetails()
     }
     
     

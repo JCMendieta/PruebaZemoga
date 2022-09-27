@@ -8,6 +8,8 @@
 import UIKit
 
 class PostDetailViewController: UIViewController {
+    
+    weak var coordinator: MainCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,8 +18,14 @@ class MainCoordinator: Coordinator {
     
     func start() {
         let postsScreen = PostsScreenViewController()
+        postsScreen.coordinator = self
         navigationController.pushViewController(postsScreen, animated: false)
     }
     
+    func showPostDetails() {
+        let postDetailScreenVC = PostDetailViewController()
+        postDetailScreenVC.coordinator = self
+        navigationController.pushViewController(postDetailScreenVC, animated: true)
+    }
     
 }
