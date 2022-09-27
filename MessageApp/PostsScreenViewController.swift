@@ -34,7 +34,7 @@ class PostsScreenViewController: UIViewController {
     }
     
     @objc func mostrarvc(){
-        coordinator?.showPostDetails()
+        //coordinator?.showPostDetails()
     }
     
     func setUpTableView(){
@@ -60,6 +60,10 @@ extension PostsScreenViewController : UITableViewDelegate, UITableViewDataSource
         content.text = arregloEjemplo[indexPath.row]
         cell.contentConfiguration = content
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        coordinator?.showPostDetails(title: arregloEjemplo[indexPath.row])
     }
     
     

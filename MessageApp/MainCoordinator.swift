@@ -22,8 +22,8 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(postsScreen, animated: false)
     }
     
-    func showPostDetails() {
-        let postDetailScreenVC = PostDetailViewController()
+    func showPostDetails(title: String) {
+        let postDetailScreenVC = PostDetailViewController(postTitle: title)
         postDetailScreenVC.coordinator = self
         navigationController.pushViewController(postDetailScreenVC, animated: true)
     }
