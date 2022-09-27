@@ -12,6 +12,7 @@ class PostsScreenViewController: UIViewController {
     weak var coordinator: MainCoordinator?
     let arregloEjemplo = ["abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", ]
     
+    
     lazy var tableView : UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.dataSource = self
@@ -40,7 +41,7 @@ class PostsScreenViewController: UIViewController {
     func setUpTableView(){
         tableView.contentInset = UIEdgeInsets.init(top: -35, left: 0, bottom: 0, right: 0)
         
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
