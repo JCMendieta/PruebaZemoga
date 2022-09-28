@@ -80,7 +80,7 @@ class PostDetailViewController: UIViewController {
         stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
 
         stack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
-
+//  
         stack.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
         stack.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
         // Do any additional setup after loading the view.
@@ -126,10 +126,6 @@ extension PostDetailViewController : UITableViewDelegate, UITableViewDataSource 
         content.text = arregloEjemplo[indexPath.row]
         cell.contentConfiguration = content
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator?.showPostDetails(title: arregloEjemplo[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

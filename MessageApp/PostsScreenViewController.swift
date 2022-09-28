@@ -18,7 +18,8 @@ class PostsScreenViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(PostViewCell.self, forCellReuseIdentifier: PostViewCell.identifier)
+        tableView.rowHeight = 50
         return tableView
     }()
     
@@ -56,10 +57,11 @@ extension PostsScreenViewController : UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostViewCell.identifier, for: indexPath) as! PostViewCell
         var content = cell.defaultContentConfiguration()
         content.text = arregloEjemplo[indexPath.row]
         cell.contentConfiguration = content
+//        cell.load(title: arregloEjemplo[indexPath.row])
         return cell
     }
     
