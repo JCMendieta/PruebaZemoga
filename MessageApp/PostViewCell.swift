@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol PostViewCellDelegate: UIViewController {
-    func addOrRemoveFavorite()
+    func addOrRemoveFavorite(in cell: PostViewCell)
 }
 
 class PostViewCell: UITableViewCell {
@@ -36,13 +36,13 @@ class PostViewCell: UITableViewCell {
     }
     
     @objc private func markAsFavorite() {
-        isFavorite = !isFavorite
-        if isFavorite {
-            starButton.setImage(filledStar, for: .normal)
-        } else {
-            starButton.setImage(emptyStar, for: .normal)
-        }
+//        isFavorite = !isFavorite
+//        if isFavorite {
+//            starButton.setImage(filledStar, for: .normal)
+//        } else {
+//            starButton.setImage(emptyStar, for: .normal)
+//        }
         accessoryView = starButton
-        delegate?.addOrRemoveFavorite()
+        delegate?.addOrRemoveFavorite(in: self)
     }
 }
