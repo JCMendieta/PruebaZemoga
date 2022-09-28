@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
+protocol PostViewCellDelegate: UIViewController {
+    func addOrRemoveFavorite()
+}
+
 class PostViewCell: UITableViewCell {
+    weak var delegate: PostViewCellDelegate?
 
     var isFavorite = false
     let starButton = UIButton(type: .system)
@@ -28,9 +33,6 @@ class PostViewCell: UITableViewCell {
         starButton.addTarget(self, action: #selector(markAsFavorite), for: .touchUpInside)
         
         accessoryView = starButton
-        
-
-
     }
     
     @objc private func markAsFavorite() {
@@ -41,7 +43,6 @@ class PostViewCell: UITableViewCell {
             starButton.setImage(emptyStar, for: .normal)
         }
         accessoryView = starButton
+        delegate?.addOrRemoveFavorite()
     }
-
-    
 }

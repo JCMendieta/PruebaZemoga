@@ -54,11 +54,6 @@ class PostDetailViewController: UIViewController {
         return tableView
     }()
     
-    
-    
-    
-    
-    
     let postTitle: String
     //let postAuthorName: String
    // let postDescription: String
@@ -78,14 +73,10 @@ class PostDetailViewController: UIViewController {
         view.addSubview(commentsTableView)
         
         stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-
         stack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
-//  
         stack.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
         stack.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-        // Do any additional setup after loading the view.
-        
-        
+
         commentsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         commentsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         commentsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -94,25 +85,12 @@ class PostDetailViewController: UIViewController {
     
     init(postTitle: String) {
         self.postTitle = postTitle
-        
         super.init(nibName: nil, bundle: nil)
-        
     }
+    
     required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension PostDetailViewController : UITableViewDelegate, UITableViewDataSource {
@@ -131,6 +109,4 @@ extension PostDetailViewController : UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "List of comments:"
     }
-    
-    
 }

@@ -28,15 +28,15 @@ class PostsScreenViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.title = "Posts"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(mostrarvc))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAllNonFavorites))
         view.backgroundColor = .white
         view.addSubview(tableView)
         
         setUpTableView()
     }
     
-    @objc func mostrarvc(){
-        //coordinator?.showPostDetails()
+    @objc func deleteAllNonFavorites(){
+        print("Eliminar post que no son favoritos")
     }
     
     func setUpTableView(){
@@ -46,12 +46,10 @@ class PostsScreenViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        
     }
-    
 }
 
-extension PostsScreenViewController : UITableViewDelegate, UITableViewDataSource {
+extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arregloEjemplo.count
     }
@@ -61,14 +59,18 @@ extension PostsScreenViewController : UITableViewDelegate, UITableViewDataSource
         var content = cell.defaultContentConfiguration()
         content.text = arregloEjemplo[indexPath.row]
         cell.contentConfiguration = content
-//        cell.load(title: arregloEjemplo[indexPath.row])
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         coordinator?.showPostDetails(title: arregloEjemplo[indexPath.row])
     }
-    
-    
+}
+
+extension PostsScreenViewController: PostViewCellDelegate {
+    func addOrRemoveFavorite() {
+        print("Agregar o eliminar favorito")
+    }
 }
 
