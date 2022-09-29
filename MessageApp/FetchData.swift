@@ -34,14 +34,12 @@ struct FetchManager {
         if let url = URL(string: usersStringURL) {
             
         }
-        
     }
     
     func fetchCommentsFor(idPost: Int){
         if let url = URL(string: "\(commentsStringURL)\(idPost)") {
             
         }
-        
     }
     
     func performRequest(url: URL, for fetchType: FetchType){
