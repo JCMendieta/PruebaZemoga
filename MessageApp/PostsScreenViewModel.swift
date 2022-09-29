@@ -25,6 +25,13 @@ struct PostsScreenViewModel {
         posts[idOriginalPost].isFavorite = false
     }
     
+    mutating func removeNotFavoritePosts() {
+        let onlyFavoritePosts = posts.filter { post in
+            post.isFavorite
+        }
+        posts = onlyFavoritePosts
+    }
+    
     var postsCount: Int {
         return posts.count
     }

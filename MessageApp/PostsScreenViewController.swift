@@ -8,9 +8,7 @@
 import UIKit
 
 class PostsScreenViewController: UIViewController {
-
     weak var coordinator: MainCoordinator?
-    
     var viewModel = PostsScreenViewModel(posts: [], favoritePosts: []) {
         didSet {
             tableView.reloadData()
@@ -47,7 +45,8 @@ class PostsScreenViewController: UIViewController {
     }
     
     @objc func deleteAllNonFavorites(){
-        print("Eliminar post que no son favoritos")
+        viewModel.removeNotFavoritePosts()
+        tableView.reloadData()
     }
     
     func setUpTableView(){
