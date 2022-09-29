@@ -25,7 +25,7 @@ class PostsScreenViewController: UIViewController {
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(PostViewCell.self, forCellReuseIdentifier: PostViewCell.identifier)
-        tableView.rowHeight = 50
+        tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
     
