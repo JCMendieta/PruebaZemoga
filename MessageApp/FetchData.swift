@@ -7,22 +7,19 @@
 
 import Foundation
 
-protocol FetchManagerDelegate {
+protocol FetchPostsManagerDelegate {
     func didUpdatePosts(with viewModel: PostsScreenViewModel)
-    func didUpdateUsers()
-    func didUpdateComments()
+    func didUpdateUsers(with users: [User])
 }
 
-struct FetchManager {
+protocol FetchPostDetailsManagerDelegate {
+    func didUpdateComments(with comments: [Comment])
+}
+
+struct FetchPostsManager {
     let postsStringURL="https://jsonplaceholder.typicode.com/posts"
     let usersStringURL="https://jsonplaceholder.typicode.com/users"
-    let commentsStringURL="https://jsonplaceholder.typicode.com/posts/"
-    
-    var delegate: FetchManagerDelegate?
-    
-    enum FetchType {
-        case posts, users, comments
-    }
+    var delegate: FetchPostsManagerDelegate?
     
     func fetchPosts(){
         if let url = URL(string: postsStringURL) {
@@ -32,13 +29,7 @@ struct FetchManager {
     
     func fetchUsers(){
         if let url = URL(string: usersStringURL) {
-            
-        }
-    }
-    
-    func fetchCommentsFor(idPost: Int){
-        if let url = URL(string: "\(commentsStringURL)\(idPost)") {
-            
+            performRequest(url: url, for: .users)
         }
     }
     
@@ -54,9 +45,7 @@ struct FetchManager {
                 case .posts:
                     parsePostsJSON(json: safeData)
                 case .users:
-                    print("")
-                case .comments:
-                    print("2")
+                    parseUsersJSON(json: safeData)
                 }
                 
             }
@@ -72,7 +61,48 @@ struct FetchManager {
             delegate?.didUpdatePosts(with: viewModel)
         }
     }
+    
+    func parseUsersJSON(json: Data) {
+        let decoder = JSONDecoder()
+        if let users = try? decoder.decode([User].self, from: json){
+            delegate?.didUpdateUsers(with: users)
+        }
+    }
 }
 
-                
-                
+struct FetchPostsDetailsManager {
+    let commentsStringURL="https://jsonplaceholder.typicode.com/posts/"
+    var delegate: FetchPostDetailsManagerDelegate?
+    
+    func fetchCommentsFor(idPost: Int){
+        if let url = URL(string: "\(commentsStringURL)\(idPost)/comments") {
+            performRequest(url: url)
+        }
+    }
+    
+    func performRequest(url: URL){
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: url){ (data, response, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            if let safeData = data {
+                parseCommentsJSON(json: safeData)
+            }
+        }
+        task.resume()
+    }
+    
+    func parseCommentsJSON(json: Data) {
+        let decoder = JSONDecoder()
+        if let comments = try? decoder.decode([Comment].self, from: json){
+            delegate?.didUpdateComments(with: comments)
+        }
+    }
+}
+
+enum FetchType {
+    case posts, users
+}
+

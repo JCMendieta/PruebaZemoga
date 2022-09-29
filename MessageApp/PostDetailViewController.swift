@@ -39,7 +39,7 @@ class PostDetailViewController: UIViewController {
     
     lazy var authorNameLabel: UILabel = {
         let author = UILabel()
-        author.text = "PEPE"
+        author.text = postAuthorName
         return author
     }()
     
@@ -56,7 +56,7 @@ class PostDetailViewController: UIViewController {
     
     let postTitle: String
     let postBody: String
-    //let postAuthorName: String
+    let postAuthorName: String
    // let postDescription: String
     //alet postComments: [String]
     
@@ -84,9 +84,11 @@ class PostDetailViewController: UIViewController {
         commentsTableView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 20).isActive = true
     }
     
-    init(postTitle: String, postBody: String) {
+    init(postTitle: String, postBody: String, author: String) {
         self.postTitle = postTitle
         self.postBody = postBody
+        self.postAuthorName = author
+        
         super.init(nibName: nil, bundle: nil)
     }
     

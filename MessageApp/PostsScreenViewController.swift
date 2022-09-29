@@ -17,7 +17,9 @@ class PostsScreenViewController: UIViewController {
         }
     }
     
-    var fetchManager = FetchManager()
+    var users = [User]()
+    
+    var fetchPostsManager = FetchPostsManager()
     
     lazy var tableView : UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -38,8 +40,9 @@ class PostsScreenViewController: UIViewController {
         
         setUpTableView()
         
-        fetchManager.delegate = self
-        fetchManager.fetchPosts()
+        fetchPostsManager.delegate = self
+        fetchPostsManager.fetchPosts()
+        fetchPostsManager.fetchUsers()
         
     }
     
@@ -52,6 +55,17 @@ class PostsScreenViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+    }
+    
+    func getAuthor(with id: Int) -> String {
+        print(users[id - 1].name)
+        return users[id - 1].name
+//        let user = users.filter { user in
+//            user.id == id
+//        }
+//        guard let author = user.first?.name else { return "" }
+//        return author
+        
     }
 }
 
@@ -85,13 +99,16 @@ extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let isFavorite = indexPath.section == 0
+        
 
         if isFavorite {
             let post = viewModel.favoritePosts[indexPath.row].post
-            coordinator?.showPostDetails(title: post.title, body: post.body)
+            let author = getAuthor(with: post.userId)
+            coordinator?.showPostDetails(title: post.title, body: post.body, author: author)
         } else {
             let post = viewModel.posts[indexPath.row]
-            coordinator?.showPostDetails(title: post.title, body: post.body)
+            let author = getAuthor(with: post.userId)
+            coordinator?.showPostDetails(title: post.title, body: post.body, author: author)
         }
     }
     
@@ -133,20 +150,18 @@ extension PostsScreenViewController: PostViewCellDelegate {
     }
 }
 
-extension PostsScreenViewController: FetchManagerDelegate {
+extension PostsScreenViewController: FetchPostsManagerDelegate {
+    func didUpdateUsers(with users: [User]) {
+        DispatchQueue.main.async {
+            self.users = users
+        }
+    }
+    
     
     func didUpdatePosts(with viewModel: PostsScreenViewModel) {
         DispatchQueue.main.async {
             self.viewModel = viewModel
         }
-    }
-    
-    func didUpdateUsers() {
-        
-    }
-    
-    func didUpdateComments() {
-        
     }
 }
 
