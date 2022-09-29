@@ -63,8 +63,8 @@ class PostsScreenViewController: UIViewController {
     }
     
     func getAuthor(with id: Int) -> String {
-        print(users[id - 1].name)
-        return users[id - 1].name
+//        print(users[id - 1].name)
+        return "\(users[id - 1].name) (\(users[id - 1].username)) "+"\n\(users[id - 1].email)"+"\n\(users[id - 1].phone) - \(users[id - 1].address.city)"+"\n\(users[id - 1].website)"
 //        let user = users.filter { user in
 //            user.id == id
 //        }
