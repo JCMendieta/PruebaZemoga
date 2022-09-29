@@ -32,6 +32,24 @@ struct PostsScreenViewModel {
         posts = onlyFavoritePosts
     }
     
+    mutating func removePostWith(index: Int){
+        let indexOfFavoritePost = favoritePosts.firstIndex { favoritePost in
+            favoritePost.id == index
+        }
+        if let index = indexOfFavoritePost {
+            favoritePosts.remove(at: index)
+        }
+        
+        posts.remove(at: index)
+        
+    }
+    
+    mutating func removePostFromfavoriteWith(index: Int){
+        let originalIndex = favoritePosts[index].id
+        posts[originalIndex].isFavorite = false
+        favoritePosts.remove(at: index)
+    }
+    
     var postsCount: Int {
         return posts.count
     }

@@ -111,6 +111,16 @@ extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if indexPath.section == 0 {
+                viewModel.removePostFromfavoriteWith(index: indexPath[1])
+            } else {
+                viewModel.removePostWith(index: indexPath[1])
+            }
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }

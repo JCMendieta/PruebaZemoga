@@ -27,13 +27,16 @@ class PostDetailViewController: UIViewController {
 
     lazy var titleLabel: UILabel = {
         let title = UILabel()
-        title.text = postTitle
+        title.text = "Title: \(postTitle)"
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        title.numberOfLines = 0
         return title
     }()
     
     lazy var postDescriptionLabel: UITextView = {
         let description = UITextView()
         description.text = postBody
+        description.isEditable = false
         description.translatesAutoresizingMaskIntoConstraints = false
         
         return description
@@ -41,7 +44,7 @@ class PostDetailViewController: UIViewController {
     
     lazy var authorNameLabel: UILabel = {
         let author = UILabel()
-        author.text = postAuthorName
+        author.text = "Author: \(postAuthorName)"
         return author
     }()
     
