@@ -104,11 +104,11 @@ extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource 
         if isFavorite {
             let post = viewModel.favoritePosts[indexPath.row].post
             let author = getAuthor(with: post.userId)
-            coordinator?.showPostDetails(title: post.title, body: post.body, author: author)
+            coordinator?.showPostDetails(title: post.title, body: post.body, author: author, postId: post.postId)
         } else {
             let post = viewModel.posts[indexPath.row]
             let author = getAuthor(with: post.userId)
-            coordinator?.showPostDetails(title: post.title, body: post.body, author: author)
+            coordinator?.showPostDetails(title: post.title, body: post.body, author: author, postId: post.postId)
         }
     }
     

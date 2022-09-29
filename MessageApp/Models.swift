@@ -22,7 +22,7 @@ struct Post: Codable {
 
 // MARK: - Comment
 struct Comment: Codable {
-    let postID, id: Int
+    let postId, id: Int
     let name, email, body: String
 }
 

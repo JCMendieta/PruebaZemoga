@@ -96,6 +96,7 @@ struct FetchPostsDetailsManager {
     
     func parseCommentsJSON(json: Data) {
         let decoder = JSONDecoder()
+        let comments = try! decoder.decode([Comment].self, from: json)
         if let comments = try? decoder.decode([Comment].self, from: json){
             delegate?.didUpdateComments(with: comments)
         }

@@ -13,6 +13,8 @@ class PostDetailViewController: UIViewController {
     
     weak var coordinator: MainCoordinator?
     
+    var comments = [Comment]()
+    
     lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -57,9 +59,12 @@ class PostDetailViewController: UIViewController {
     let postTitle: String
     let postBody: String
     let postAuthorName: String
+    let postId: Int
+    
    // let postDescription: String
     //alet postComments: [String]
     
+    var fetchCommentsManager = FetchPostsDetailsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,12 +87,16 @@ class PostDetailViewController: UIViewController {
         commentsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         commentsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         commentsTableView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 20).isActive = true
+        
+        fetchCommentsManager.delegate = self
+        fetchCommentsManager.fetchCommentsFor(idPost: postId)
     }
     
-    init(postTitle: String, postBody: String, author: String) {
+    init(postTitle: String, postBody: String, author: String, postId: Int) {
         self.postTitle = postTitle
         self.postBody = postBody
         self.postAuthorName = author
+        self.postId = postId
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -97,20 +106,32 @@ class PostDetailViewController: UIViewController {
         }
 }
 
-extension PostDetailViewController : UITableViewDelegate, UITableViewDataSource {
+extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arregloEjemplo.count
+        return comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = arregloEjemplo[indexPath.row]
+        content.text = comments[indexPath.row].email
+        content.secondaryText = comments[indexPath.row].body
+//        content.text = arregloEjemplo[indexPath.row]
+//        print(comments[indexPath.row].body)
         cell.contentConfiguration = content
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "List of comments:"
+    }
+}
+
+extension PostDetailViewController: FetchPostDetailsManagerDelegate {
+    func didUpdateComments(with comments: [Comment]) {
+        DispatchQueue.main.async {
+            self.comments = comments
+            self.commentsTableView.reloadData()
+        }
     }
 }
