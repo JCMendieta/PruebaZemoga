@@ -13,11 +13,13 @@ class PostsScreenViewController: UIViewController {
 //    var arregloEjemplo = ["abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", ]
 //    var arregloFavoritos = [String]()
     
-    var postsScreenViewModel = PostsScreenViewModel(posts: [], favoritePosts: []) {
+    var viewModel = PostsScreenViewModel(posts: [], favoritePosts: []) {
         didSet {
             tableView.reloadData()
         }
     }
+    
+    var fetchManager = FetchManager()
     
     lazy var tableView : UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -41,19 +43,46 @@ class PostsScreenViewController: UIViewController {
         
         setUpTableView()
         
-        postsScreenViewModel = PostsScreenViewModel(
-            posts:
-                [
-                    PostViewModel(title: "post1NoFav", isFavorite: false),
-                    PostViewModel(title: "post2NoFav", isFavorite: false),
-                    PostViewModel(title: "post3NoFav", isFavorite: false),
-                    PostViewModel(title: "post4NoFav", isFavorite: false),
-                    PostViewModel(title: "post5NoFav", isFavorite: false),
-                    PostViewModel(title: "post6NoFav", isFavorite: false),
-                    PostViewModel(title: "post7NoFav", isFavorite: false),
-                    PostViewModel(title: "post8NoFav", isFavorite: false)
-                ],
-            favoritePosts: [FavoritePostViewModel]())
+        fetchManager.delegate = self
+        fetchManager.fetchPosts()
+        
+//        viewModel = PostsScreenViewModel(
+//            posts:
+//                [
+//                    PostViewModel(title: "post1NoFav", isFavorite: false),
+//                    PostViewModel(title: "post2NoFav", isFavorite: false),
+//                    PostViewModel(title: "post3NoFav", isFavorite: false),
+//                    PostViewModel(title: "post4NoFav", isFavorite: false),
+//                    PostViewModel(title: "post5NoFav", isFavorite: false),
+//                    PostViewModel(title: "post6NoFav", isFavorite: false),
+//                    PostViewModel(title: "post7NoFav", isFavorite: false),
+//                    PostViewModel(title: "post8NoFav", isFavorite: false)
+//                ],
+//            favoritePosts: [FavoritePostViewModel]())
+        
+//
+//        let urlString = "https://jsonplaceholder.typicode.com/posts"
+//
+//        if let url = URL(string: urlString){
+//            if let data = try? Data(contentsOf: url){
+//                parse(json: data)
+//            }
+//        }
+//    }
+//
+//    var posts = [Post]()
+//
+//    func parse(json: Data) {
+//        let decoder = JSONDecoder()
+//
+//        print(String(data: json, encoding: String.Encoding.utf8)!)
+//
+//        if let jsonPetitions = try? decoder.decode([Post].self, from: json){
+//            posts = jsonPetitions
+//            let postsScreenViewModel = Utils.getPostsViewModel(posts: posts)
+//            viewModel = PostsScreenViewModel(posts: postsScreenViewModel, favoritePosts: [])
+//            tableView.reloadData()
+//        }
     }
     
     @objc func deleteAllNonFavorites(){
@@ -73,10 +102,10 @@ class PostsScreenViewController: UIViewController {
 extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return postsScreenViewModel.favoritePosts.count
+            return viewModel.favoritePosts.count
         }
         else {
-            return postsScreenViewModel.posts.count
+            return viewModel.posts.count
         }
     }
     
@@ -87,10 +116,10 @@ extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource 
         let isFavorite = indexPath.section == 0
         
         if isFavorite {
-            let favoritePostTitle = postsScreenViewModel.favoritePosts[indexPath.row].post.title
+            let favoritePostTitle = viewModel.favoritePosts[indexPath.row].post.title
             content.text = favoritePostTitle
         } else {
-            let postTitle = postsScreenViewModel.posts[indexPath.row].title
+            let postTitle = viewModel.posts[indexPath.row].title
             content.text = postTitle
         }
         
@@ -103,9 +132,9 @@ extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource 
         let isFavorite = indexPath.section == 0
         
         if isFavorite {
-            coordinator?.showPostDetails(title: postsScreenViewModel.favoritePosts[indexPath.row].post.title)
+            coordinator?.showPostDetails(title: viewModel.favoritePosts[indexPath.row].post.title)
         } else {
-            coordinator?.showPostDetails(title: postsScreenViewModel.posts[indexPath.row].title)
+            coordinator?.showPostDetails(title: viewModel.posts[indexPath.row].title)
         }
         
     }
@@ -137,13 +166,13 @@ extension PostsScreenViewController: PostViewCellDelegate {
     func addOrRemoveFavorite(in cell: PostViewCell) {
         
         if let indexPathTapped = tableView.indexPath(for: cell){
-            let post = postsScreenViewModel.posts[indexPathTapped[1]]
+            let post = viewModel.posts[indexPathTapped[1]]
             if indexPathTapped[0] == 0 {
-                postsScreenViewModel.removeFromFavorite(at: indexPathTapped[1])
+                viewModel.removeFromFavorite(at: indexPathTapped[1])
 //                postsScreenViewModel.favoritePosts.remove(at: indexPathTapped[1])
             } else {
                 cell.isFavorite = true
-                postsScreenViewModel.addToFavorite(post: post, indexRow: indexPathTapped[1])
+                viewModel.addToFavorite(post: post, indexRow: indexPathTapped[1])
 //                postsScreenViewModel.favoritePosts.append(post)
             }
             tableView.reloadData()
@@ -155,5 +184,24 @@ extension PostsScreenViewController: PostViewCellDelegate {
         
         
     }
+}
+
+extension PostsScreenViewController: FetchManagerDelegate {
+    
+    func didUpdatePosts(with viewModel: PostsScreenViewModel) {
+        DispatchQueue.main.async {
+            self.viewModel = viewModel
+        }
+    }
+    
+    func didUpdateUsers() {
+        
+    }
+    
+    func didUpdateComments() {
+        
+    }
+    
+    
 }
 

@@ -18,7 +18,7 @@
 		5A88BE5428E370E600BA2941 /* PostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88BE5328E370E600BA2941 /* PostViewCell.swift */; };
 		5A88BE5628E49E4A00BA2941 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88BE5528E49E4A00BA2941 /* Models.swift */; };
 		5A88BE5828E4B3D000BA2941 /* PostsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88BE5728E4B3D000BA2941 /* PostsScreenViewModel.swift */; };
-		5A88BE5A28E4B5B300BA2941 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88BE5928E4B5B300BA2941 /* PostDetailViewModel.swift */; };
+		5A88BE5C28E4DA4900BA2941 /* FetchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88BE5B28E4DA4900BA2941 /* FetchData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,7 @@
 		5A88BE5328E370E600BA2941 /* PostViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewCell.swift; sourceTree = "<group>"; };
 		5A88BE5528E49E4A00BA2941 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		5A88BE5728E4B3D000BA2941 /* PostsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsScreenViewModel.swift; sourceTree = "<group>"; };
-		5A88BE5928E4B5B300BA2941 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
+		5A88BE5B28E4DA4900BA2941 /* FetchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +72,8 @@
 				5A88BE3928E14DA900BA2941 /* SceneDelegate.swift */,
 				5A88BE3B28E14DA900BA2941 /* PostsScreenViewController.swift */,
 				5A88BE5528E49E4A00BA2941 /* Models.swift */,
+				5A88BE5B28E4DA4900BA2941 /* FetchData.swift */,
 				5A88BE5728E4B3D000BA2941 /* PostsScreenViewModel.swift */,
-				5A88BE5928E4B5B300BA2941 /* PostDetailViewModel.swift */,
 				5A88BE4D28E1613A00BA2941 /* PostDetailViewController.swift */,
 				5A88BE5328E370E600BA2941 /* PostViewCell.swift */,
 				5A88BE4028E14DAB00BA2941 /* Assets.xcassets */,
@@ -157,6 +157,7 @@
 			files = (
 				5A88BE5428E370E600BA2941 /* PostViewCell.swift in Sources */,
 				5A88BE3C28E14DA900BA2941 /* PostsScreenViewController.swift in Sources */,
+				5A88BE5C28E4DA4900BA2941 /* FetchData.swift in Sources */,
 				5A88BE5228E21ECE00BA2941 /* MainCoordinator.swift in Sources */,
 				5A88BE5628E49E4A00BA2941 /* Models.swift in Sources */,
 				5A88BE4E28E1613A00BA2941 /* PostDetailViewController.swift in Sources */,
@@ -164,7 +165,6 @@
 				5A88BE5028E21DF300BA2941 /* Coordinator.swift in Sources */,
 				5A88BE3828E14DA900BA2941 /* AppDelegate.swift in Sources */,
 				5A88BE3A28E14DA900BA2941 /* SceneDelegate.swift in Sources */,
-				5A88BE5A28E4B5B300BA2941 /* PostDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

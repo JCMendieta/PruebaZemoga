@@ -31,6 +31,16 @@ struct PostsScreenViewModel {
     var favoriteCount: Int {
         return favoritePosts.count
     }
+
+    
+}
+
+struct Utils {
+    static func getPostsViewModel(posts: [Post]) -> [PostViewModel] {
+        posts.map { post in
+            return PostViewModel(title: post.title, isFavorite: false)
+        }
+    }
 }
 
 struct PostViewModel {
