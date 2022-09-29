@@ -33,6 +33,7 @@ class PostsScreenViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = "Posts"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAllNonFavorites))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadData))
         view.backgroundColor = .white
         view.addSubview(tableView)
         
@@ -46,6 +47,11 @@ class PostsScreenViewController: UIViewController {
     
     @objc func deleteAllNonFavorites(){
         viewModel.removeNotFavoritePosts()
+        tableView.reloadData()
+    }
+    
+    @objc func reloadData(){
+        fetchPostsManager.fetchPosts()
         tableView.reloadData()
     }
     
