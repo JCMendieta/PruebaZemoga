@@ -1,5 +1,7 @@
 # PruebaZemoga
 
+<img src="https://github.com/JCMendieta/PruebaZemoga/blob/main/Images/PostDetailsScreen.png" width="30%"></img>
+
 ## The app was divided in 4 folders: Views, Models, View models and Project files.
 - The Views folder contains the files used to create the visual components in the screens of posts and post details.
 - The Models folder contains structs to represent the data requested from the JSON, it also has the fetch service and the coordinator that manages the views of the app.
