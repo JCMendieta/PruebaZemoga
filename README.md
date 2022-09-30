@@ -8,7 +8,7 @@
 
 ## Models
 
-###Posts
+### Posts
 
 ```swift
 struct Posts: Codable {
@@ -25,7 +25,7 @@ struct Post: Codable {
 }
 ```
 
-###Comment
+### Comment
 ```swift
 struct Comment: Codable {
     let postId, id: Int
@@ -33,7 +33,7 @@ struct Comment: Codable {
 }
 ```
 
-###User
+### User
 ```swift
 struct User: Codable {
     let id: Int
@@ -44,9 +44,9 @@ struct User: Codable {
 }
 ```
 
-##ViewModels
+## ViewModels
 
-###PostScreenViewModel
+### PostScreenViewModel
 ```swift
 struct PostsScreenViewModel {
     var posts: [PostViewModel]
@@ -183,7 +183,7 @@ struct FetchPostsDetailsManager {
 }
 ```
 
-###URLs - The URLs used in FetchPostsManager and FetchPostDetailManager
+### URLs - The URLs used in FetchPostsManager and FetchPostDetailManager
 ```swift
 struct URLs {
     static let posts = "https://jsonplaceholder.typicode.com/posts"
@@ -192,7 +192,7 @@ struct URLs {
 }
 ```
 
-###FetchType - Used to recognize which function will be called inside FetchPostManager
+### FetchType - Used to recognize which function will be called inside FetchPostManager
 ```swift
 enum FetchType {
     case posts, users
