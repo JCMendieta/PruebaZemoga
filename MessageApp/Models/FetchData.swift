@@ -101,13 +101,3 @@ struct FetchPostsDetailsManager {
         }
     }
 }
-
-enum FetchType {
-    case posts, users
-}
-
-struct URLs {
-    static let posts = "https://jsonplaceholder.typicode.com/posts"
-    static let users = "https://jsonplaceholder.typicode.com/users"
-    static let commets = "https://jsonplaceholder.typicode.com/posts/"
-}
