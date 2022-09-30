@@ -48,31 +48,3 @@ struct PostsScreenViewModel {
         favoritePosts.remove(at: index)
     }
 }
-
-struct Utils {
-    static func getPostsViewModel(posts: [Post]) -> [PostViewModel] {
-        posts.map { post in
-            return PostViewModel(
-                userId: post.userId,
-                postId: post.id,
-                title: post.title,
-                body: post.body,
-                isFavorite: false
-            )
-        }
-    }
-}
-
-struct PostViewModel {
-    let userId: Int
-    let postId: Int
-    let title: String
-    let body: String
-    var isFavorite: Bool
-}
-
-struct FavoritePostViewModel {
-    let post: PostViewModel
-    let id: Int
-}
-
