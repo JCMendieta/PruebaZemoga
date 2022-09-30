@@ -5,11 +5,12 @@
 <img src="https://github.com/JCMendieta/PruebaZemoga/blob/main/Images/demo.gif" width="22%"></img>
 
 
-## The app was divided in 4 folders: Views, Models, View models and Project files.
+## The app was divided in 5 folders: Views, Models, View models, Project files and Utils.
 - The Views folder contains the files used to create the visual components in the screens of posts and post details.
-- The Models folder contains structs to represent the data requested from the JSON, it also has the fetch service and the coordinator that manages the views of the app.
-- The View model folder constains the structure needed to represent the data that is going to be shown in the screen when a particular screen is being showed, it also contains the launchScreen of the app.
+- The Models folder contains the basic structures to represent the data requested from the JSON, it also has the fetch service and the coordinator that manages what view needs to be shown in the app.
+- The View model folder constains the structure needed to represent the data that is going to be shown in the screen, it has some methods to update his data.
 - Project files contains the configuration files of the project and resources such as images and icons.
+- Utils contains useful data and methods that could be needed in different parts of the application Utils provide an easy way to access these.
 
 ## Models
 
