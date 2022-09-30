@@ -10,6 +10,14 @@ import Foundation
 struct PostsScreenViewModel {
     var posts: [PostViewModel]
     var favoritePosts: [FavoritePostViewModel]
+    //ELIMINAR?
+//    var postsCount: Int {
+//        return posts.count
+//    }
+//    var favoriteCount: Int {
+//        return favoritePosts.count
+//    }
+
     
     mutating func addToFavorite(post: PostViewModel, indexRow: Int) {
         if post.isFavorite == false {
@@ -39,9 +47,7 @@ struct PostsScreenViewModel {
         if let index = indexOfFavoritePost {
             favoritePosts.remove(at: index)
         }
-        
         posts.remove(at: index)
-        
     }
     
     mutating func removePostFromfavoriteWith(index: Int){
@@ -49,14 +55,6 @@ struct PostsScreenViewModel {
         posts[originalIndex].isFavorite = false
         favoritePosts.remove(at: index)
     }
-    
-    var postsCount: Int {
-        return posts.count
-    }
-    var favoriteCount: Int {
-        return favoritePosts.count
-    }
-    
 }
 
 struct Utils {

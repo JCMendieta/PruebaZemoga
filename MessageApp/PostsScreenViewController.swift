@@ -9,15 +9,13 @@ import UIKit
 
 class PostsScreenViewController: UIViewController {
     weak var coordinator: MainCoordinator?
-    var viewModel = PostsScreenViewModel(posts: [], favoritePosts: []) {
+    private var users = [User]()
+    private var fetchPostsManager = FetchPostsManager()
+    private var viewModel = PostsScreenViewModel(posts: [], favoritePosts: []) {
         didSet {
             tableView.reloadData()
         }
     }
-    
-    var users = [User]()
-    
-    var fetchPostsManager = FetchPostsManager()
     
     lazy var tableView : UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -42,7 +40,6 @@ class PostsScreenViewController: UIViewController {
         fetchPostsManager.delegate = self
         fetchPostsManager.fetchPosts()
         fetchPostsManager.fetchUsers()
-        
     }
     
     @objc func deleteAllNonFavorites(){
@@ -63,17 +60,11 @@ class PostsScreenViewController: UIViewController {
     }
     
     func getAuthor(with id: Int) -> String {
-//        print(users[id - 1].name)
         return "\(users[id - 1].name) (\(users[id - 1].username)) "+"\n\(users[id - 1].email)"+"\n\(users[id - 1].phone) - \(users[id - 1].address.city)"+"\n\(users[id - 1].website)"
-//        let user = users.filter { user in
-//            user.id == id
-//        }
-//        guard let author = user.first?.name else { return "" }
-//        return author
-        
     }
 }
 
+// MARK: TableView Delegates And Configuration
 extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
@@ -87,7 +78,6 @@ extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostViewCell.identifier, for: indexPath) as! PostViewCell
         var content = cell.defaultContentConfiguration()
-        
         let isFavorite = indexPath.section == 0
         
         if isFavorite {
@@ -105,7 +95,6 @@ extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let isFavorite = indexPath.section == 0
         
-
         if isFavorite {
             let post = viewModel.favoritePosts[indexPath.row].post
             let author = getAuthor(with: post.userId)
@@ -148,30 +137,30 @@ extension PostsScreenViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
+// MARK: - PostViewCell Delegate
 extension PostsScreenViewController: PostViewCellDelegate {
     func addOrRemoveFavorite(in cell: PostViewCell) {
         if let indexPathTapped = tableView.indexPath(for: cell){
             let post = viewModel.posts[indexPathTapped[1]]
-            if indexPathTapped[0] == 0 {
+            let isFavoritePost = indexPathTapped.section == 0
+            
+            if isFavoritePost {
                 viewModel.removeFromFavorite(at: indexPathTapped[1])
-//                postsScreenViewModel.favoritePosts.remove(at: indexPathTapped[1])
             } else {
-                cell.isFavorite = true
                 viewModel.addToFavorite(post: post, indexRow: indexPathTapped[1])
-//                postsScreenViewModel.favoritePosts.append(post)
             }
             tableView.reloadData()
         }
     }
 }
 
+// MARK: - PostScreenViewController Delegate
 extension PostsScreenViewController: FetchPostsManagerDelegate {
     func didUpdateUsers(with users: [User]) {
         DispatchQueue.main.async {
             self.users = users
         }
     }
-    
     
     func didUpdatePosts(with viewModel: PostsScreenViewModel) {
         DispatchQueue.main.async {

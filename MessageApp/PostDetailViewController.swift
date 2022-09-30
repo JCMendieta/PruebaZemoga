@@ -9,22 +9,23 @@ import UIKit
 
 class PostDetailViewController: UIViewController {
     
-    let arregloEjemplo = ["abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo", "abeja" , "baja", "ccooc" , "dardo" ]
-    
     weak var coordinator: MainCoordinator?
-    
-    var comments = [Comment]()
+    private var comments = [Comment]()
+    private let postTitle: String
+    private let postBody: String
+    private let postAuthorName: String
+    private let postId: Int
+    private var fetchCommentsManager = FetchPostsDetailsManager()
     
     lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fill
         stack.spacing = 15
-        
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-
+    
     lazy var titleLabel: UILabel = {
         let title = UILabel()
         title.text = "Title: \(postTitle)"
@@ -38,7 +39,6 @@ class PostDetailViewController: UIViewController {
         description.text = postBody
         description.isEditable = false
         description.translatesAutoresizingMaskIntoConstraints = false
-        
         return description
     }()
     
@@ -46,7 +46,7 @@ class PostDetailViewController: UIViewController {
         let author = UILabel()
         author.text = "Author:\n\(postAuthorName)"
         author.numberOfLines = 0
-        author.font = UIFont(name: author.font.fontName, size: 12)
+        author.font = UIFont(name: "Helvetica Neue", size: 12)
         return author
     }()
     
@@ -61,40 +61,16 @@ class PostDetailViewController: UIViewController {
         return tableView
     }()
     
-    let postTitle: String
-    let postBody: String
-    let postAuthorName: String
-    let postId: Int
-    
-   // let postDescription: String
-    //alet postComments: [String]
-    
-    var fetchCommentsManager = FetchPostsDetailsManager()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Post Details"
         view.backgroundColor = .white
         
-        stack.addArrangedSubview(titleLabel)
-        stack.addArrangedSubview(postDescriptionLabel)
-        stack.addArrangedSubview(authorNameLabel)
-        
-        view.addSubview(stack)
-        view.addSubview(commentsTableView)
-        
-        stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        stack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
-        stack.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-        stack.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-
-        commentsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        commentsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        commentsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        commentsTableView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 20).isActive = true
+        setUpStack()
+        setUpCommentsTableView()
         
         fetchCommentsManager.delegate = self
-        fetchCommentsManager.fetchCommentsFor(idPost: postId)
+        fetchCommentsManager.getCommentsForPostWith(id: postId)
     }
     
     init(postTitle: String, postBody: String, author: String, postId: Int) {
@@ -102,15 +78,37 @@ class PostDetailViewController: UIViewController {
         self.postBody = postBody
         self.postAuthorName = author
         self.postId = postId
-        
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setUpStack(){
+        stack.addArrangedSubview(titleLabel)
+        stack.addArrangedSubview(postDescriptionLabel)
+        stack.addArrangedSubview(authorNameLabel)
+        
+        view.addSubview(stack)
+        
+        stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        stack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
+        stack.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        stack.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+    }
+    
+    private func setUpCommentsTableView(){
+        view.addSubview(commentsTableView)
+        
+        commentsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        commentsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        commentsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        commentsTableView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 20).isActive = true
+    }
 }
 
+// MARK: - TableView Delegates And Configuration
 extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
@@ -121,8 +119,6 @@ extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
         var content = cell.defaultContentConfiguration()
         content.text = comments[indexPath.row].email
         content.secondaryText = comments[indexPath.row].body
-//        content.text = arregloEjemplo[indexPath.row]
-//        print(comments[indexPath.row].body)
         cell.contentConfiguration = content
         return cell
     }
@@ -132,6 +128,7 @@ extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - Fetch Delegate
 extension PostDetailViewController: FetchPostDetailsManagerDelegate {
     func didUpdateComments(with comments: [Comment]) {
         DispatchQueue.main.async {
