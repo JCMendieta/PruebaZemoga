@@ -189,19 +189,43 @@ struct FetchPostsDetailsManager {
 }
 ```
 
-### URLs - The URLs used in FetchPostsManager and FetchPostDetailManager
-```swift
-struct URLs {
-    static let posts = "https://jsonplaceholder.typicode.com/posts"
-    static let users = "https://jsonplaceholder.typicode.com/users"
-    static let commets = "https://jsonplaceholder.typicode.com/posts/"
-}
-```
-
 ### FetchType - Used to recognize which function will be called inside FetchPostManager
 ```swift
 enum FetchType {
     case posts, users
 }
 ```
+##Utils
 
+```swift
+###Utils - Contains a method to return an array of PostViewModel with the favorite attribute from an array of Post
+struct Utils {
+    static func getPostsViewModel(posts: [Post]) -> [PostViewModel] {
+        posts.map { post in
+            return PostViewModel(
+                userId: post.userId,
+                postId: post.id,
+                title: post.title,
+                body: post.body,
+                isFavorite: false
+            )
+        }
+    }
+}
+```
+
+##FetchType - It is used to specify the type of data that is going to be fetched in FetchPostManager
+```swift
+enum FetchType {
+    case posts, users
+}
+```
+
+##URLs - The URLs used in FetchPostsManager and FetchPostDetailManager
+```
+struct URLs {
+    static let posts = "https://jsonplaceholder.typicode.com/posts"
+    static let users = "https://jsonplaceholder.typicode.com/users"
+    static let commets = "https://jsonplaceholder.typicode.com/posts/"
+}
+```
