@@ -95,10 +95,10 @@ struct PostsScreenViewModel {
         favoritePosts.remove(at: index)
     }
 }
+```
+## Fetch
 
-##Fetch
-
-###FetchPostsManager - Used to fetch users or post data.
+### FetchPostsManager - Used to fetch users or post data.
 ```swift
 struct FetchPostsManager {
     let postsStringURL = URLs.posts
@@ -152,9 +152,10 @@ struct FetchPostsManager {
             delegate?.didUpdateUsers(with: users)
         }
     }
-}```
+}
+```
 
-###FetchPostsDetailsManager
+### FetchPostsDetailsManager
 ```swift
 struct FetchPostsDetailsManager {
     let commentsStringURL = URLs.commets
@@ -197,8 +198,9 @@ enum FetchType {
 ```
 ##Utils
 
+
+### Utils - Contains a method to return an array of PostViewModel with the favorite attribute from an array of Post
 ```swift
-###Utils - Contains a method to return an array of PostViewModel with the favorite attribute from an array of Post
 struct Utils {
     static func getPostsViewModel(posts: [Post]) -> [PostViewModel] {
         posts.map { post in
@@ -214,14 +216,14 @@ struct Utils {
 }
 ```
 
-##FetchType - It is used to specify the type of data that is going to be fetched in FetchPostManager
+## FetchType - It is used to specify the type of data that is going to be fetched in FetchPostManager
 ```swift
 enum FetchType {
     case posts, users
 }
 ```
 
-##URLs - The URLs used in FetchPostsManager and FetchPostDetailManager
+## URLs - The URLs used in FetchPostsManager and FetchPostDetailManager
 ```
 struct URLs {
     static let posts = "https://jsonplaceholder.typicode.com/posts"
