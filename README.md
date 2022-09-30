@@ -196,7 +196,7 @@ enum FetchType {
     case posts, users
 }
 ```
-##Utils
+## Utils
 
 
 ### Utils - Contains a method to return an array of PostViewModel with the favorite attribute from an array of Post
@@ -224,7 +224,7 @@ enum FetchType {
 ```
 
 ## URLs - The URLs used in FetchPostsManager and FetchPostDetailManager
-```
+```swift
 struct URLs {
     static let posts = "https://jsonplaceholder.typicode.com/posts"
     static let users = "https://jsonplaceholder.typicode.com/users"
