@@ -51,3 +51,18 @@ struct Geo: Codable {
 struct Company: Codable {
     let name, catchPhrase, bs: String
 }
+
+//  MARK: - PostViewModel
+struct PostViewModel {
+    let userId: Int
+    let postId: Int
+    let title: String
+    let body: String
+    var isFavorite: Bool
+}
+
+// MARK: - FavoritePostViewModel
+struct FavoritePostViewModel {
+    let post: PostViewModel
+    let id: Int
+}
