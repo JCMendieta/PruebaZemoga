@@ -17,8 +17,8 @@ protocol FetchPostDetailsManagerDelegate {
 }
 
 struct FetchPostsManager {
-    let postsStringURL="https://jsonplaceholder.typicode.com/posts"
-    let usersStringURL="https://jsonplaceholder.typicode.com/users"
+    let postsStringURL = URLs.posts
+    let usersStringURL = URLs.users
     var delegate: FetchPostsManagerDelegate?
     
     func fetchPosts(){
@@ -71,11 +71,11 @@ struct FetchPostsManager {
 }
 
 struct FetchPostsDetailsManager {
-    let commentsStringURL="https://jsonplaceholder.typicode.com/posts/"
+    let commentsStringURL = URLs.commets
     var delegate: FetchPostDetailsManagerDelegate?
     
-    func fetchCommentsFor(idPost: Int){
-        if let url = URL(string: "\(commentsStringURL)\(idPost)/comments") {
+    func getCommentsForPostWith(id: Int){
+        if let url = URL(string: "\(commentsStringURL)\(id)/comments") {
             performRequest(url: url)
         }
     }
@@ -96,7 +96,6 @@ struct FetchPostsDetailsManager {
     
     func parseCommentsJSON(json: Data) {
         let decoder = JSONDecoder()
-        let comments = try! decoder.decode([Comment].self, from: json)
         if let comments = try? decoder.decode([Comment].self, from: json){
             delegate?.didUpdateComments(with: comments)
         }
@@ -107,3 +106,8 @@ enum FetchType {
     case posts, users
 }
 
+struct URLs {
+    static let posts = "https://jsonplaceholder.typicode.com/posts"
+    static let users = "https://jsonplaceholder.typicode.com/users"
+    static let commets = "https://jsonplaceholder.typicode.com/posts/"
+}

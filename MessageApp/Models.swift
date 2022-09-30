@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Posts
 struct Posts: Codable {
     var result: [Post]
 }

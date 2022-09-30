@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Diseño sin título.png",
+      "filename" : "logo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Diseño sin título@2x.png",
+      "filename" : "logo@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Diseño sin título@3x.png",
+      "filename" : "logo@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
