@@ -2,7 +2,7 @@
 
 <img src="https://github.com/JCMendieta/PruebaZemoga/blob/main/Images/PostScreenDeletedData.png" width="20%"></img>
 <img src="https://github.com/JCMendieta/PruebaZemoga/blob/main/Images/PostDetailsScreen.png" width="20%"></img>
-<img src="https://github.com/JCMendieta/PruebaZemoga/blob/main/Images/demo.gif" width="25%"></img>
+<img src="https://github.com/JCMendieta/PruebaZemoga/blob/main/Images/demo.gif" width="22%"></img>
 
 
 ## The app was divided in 4 folders: Views, Models, View models and Project files.
