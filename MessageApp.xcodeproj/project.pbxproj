@@ -68,21 +68,53 @@
 		5A88BE3628E14DA900BA2941 /* MessageApp */ = {
 			isa = PBXGroup;
 			children = (
+				5A88BE8328E6ACF000BA2941 /* Project files */,
+				5A88BE8428E6AD4700BA2941 /* Views */,
+				5A88BE8528E6ADBC00BA2941 /* Models */,
+				5A88BE8628E6BA5D00BA2941 /* View models */,
+				5A88BE4528E14DAB00BA2941 /* Info.plist */,
+			);
+			path = MessageApp;
+			sourceTree = "<group>";
+		};
+		5A88BE8328E6ACF000BA2941 /* Project files */ = {
+			isa = PBXGroup;
+			children = (
 				5A88BE3728E14DA900BA2941 /* AppDelegate.swift */,
 				5A88BE3928E14DA900BA2941 /* SceneDelegate.swift */,
-				5A88BE3B28E14DA900BA2941 /* PostsScreenViewController.swift */,
-				5A88BE4D28E1613A00BA2941 /* PostDetailViewController.swift */,
-				5A88BE5528E49E4A00BA2941 /* Models.swift */,
-				5A88BE5728E4B3D000BA2941 /* PostsScreenViewModel.swift */,
-				5A88BE5B28E4DA4900BA2941 /* FetchData.swift */,
-				5A88BE5328E370E600BA2941 /* PostViewCell.swift */,
 				5A88BE4028E14DAB00BA2941 /* Assets.xcassets */,
 				5A88BE4228E14DAB00BA2941 /* LaunchScreen.storyboard */,
-				5A88BE4528E14DAB00BA2941 /* Info.plist */,
+			);
+			path = "Project files";
+			sourceTree = "<group>";
+		};
+		5A88BE8428E6AD4700BA2941 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5A88BE3B28E14DA900BA2941 /* PostsScreenViewController.swift */,
+				5A88BE4D28E1613A00BA2941 /* PostDetailViewController.swift */,
+				5A88BE5328E370E600BA2941 /* PostViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5A88BE8528E6ADBC00BA2941 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5A88BE5528E49E4A00BA2941 /* Models.swift */,
+				5A88BE5B28E4DA4900BA2941 /* FetchData.swift */,
 				5A88BE4F28E21DF300BA2941 /* Coordinator.swift */,
 				5A88BE5128E21ECE00BA2941 /* MainCoordinator.swift */,
 			);
-			path = MessageApp;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5A88BE8628E6BA5D00BA2941 /* View models */ = {
+			isa = PBXGroup;
+			children = (
+				5A88BE5728E4B3D000BA2941 /* PostsScreenViewModel.swift */,
+			);
+			path = "View models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

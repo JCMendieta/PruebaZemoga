@@ -10,14 +10,6 @@ import Foundation
 struct PostsScreenViewModel {
     var posts: [PostViewModel]
     var favoritePosts: [FavoritePostViewModel]
-    //ELIMINAR?
-//    var postsCount: Int {
-//        return posts.count
-//    }
-//    var favoriteCount: Int {
-//        return favoritePosts.count
-//    }
-
     
     mutating func addToFavorite(post: PostViewModel, indexRow: Int) {
         if post.isFavorite == false {
